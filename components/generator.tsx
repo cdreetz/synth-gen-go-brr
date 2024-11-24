@@ -20,7 +20,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-import { Download } from "lucide-react";
+import { Download, Pencil, Check } from "lucide-react";
+import { Textarea } from "@/components/ui/textarea";
+import InfoButton from "@/components/infobutton";
 
 type Pair = {
   instruction: string;
@@ -41,6 +43,7 @@ export function Generator() {
   const [pairs, setPairs] = useState<Pair[]>([]);
   const [selectedModel, setSelectedModel] = useState("llama-3.2-90b-vision-preview");
   const { toast } = useToast();
+  const [editingIndex, setEditingIndex] = useState<number | null>(null);
 
   const modelOptions: ModelOption[] = [
     {
@@ -115,8 +118,41 @@ export function Generator() {
     linkElement.click();
   };
 
+  const updatePairAnswer = (index: number, newAnswer: string) => {
+    const updatedPairs = [...pairs];
+    updatedPairs[index] = {
+      ...updatedPairs[index],
+      answer: newAnswer,
+    };
+    setPairs(updatedPairs);
+  };
+
   return (
-    <div className="container mx-auto py-10 flex gap-8">
+    <div className="container mx-auto py-10 flex gap-8 relative">
+      <InfoButton title="How to Use the Generator">
+        <div className="space-y-2">
+          <p className="mb-2">Follow these steps to generate instruction-answer pairs:</p>
+          <ul className="list-disc pl-6 space-y-2">
+            <li>Enter a specific domain (e.g., "pharmacology", "computer science", "history")</li>
+            <li>
+              Choose an example type that suits your needs
+              <div className="mt-1">
+                <ul className="list-disc pl-6">
+                  <li>Q&A: Question and answer format</li>
+                  <li>Dialogue: Conversational examples</li>
+                  <li>Instruction: Command-response pairs</li>
+                  <li>Completion: Text completion tasks</li>
+                  <li>Few Shot: Examples for few-shot learning</li>
+                </ul>
+              </div>
+            </li>
+            <li>Select the number of examples you want to generate (1-10)</li>
+            <li>Choose a model based on your needs - larger models are more capable but slower</li>
+            <li>After generation, you can edit answers and export the pairs as JSON</li>
+          </ul>
+        </div>
+      </InfoButton>
+
       <div className="w-1/2 space-y-4">
         <Card>
           <CardHeader>
@@ -235,8 +271,36 @@ export function Generator() {
                       <p className="mt-1 text-sm">{pair.instruction}</p>
                     </div>
                     <div>
-                      <h4 className="font-medium">Answer:</h4>
-                      <p className="mt-1 text-sm">{pair.answer}</p>
+                      <div className="flex justify-between items-center">
+                        <h4 className="font-medium">Answer:</h4>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => {
+                            if (editingIndex === index) {
+                              setEditingIndex(null);
+                            } else {
+                              setEditingIndex(index);
+                            }
+                          }}
+                        >
+                          {editingIndex === index ? (
+                            <Check className="h-4 w-4" />
+                          ) : (
+                            <Pencil className="h-4 w-4" />
+                          )}
+                        </Button>
+                      </div>
+                      {editingIndex === index ? (
+                        <Textarea
+                          value={pair.answer}
+                          onChange={(e) => updatePairAnswer(index, e.target.value)}
+                          className="mt-1"
+                          rows={4}
+                        />
+                      ) : (
+                        <p className="mt-1 text-sm whitespace-pre-wrap">{pair.answer}</p>
+                      )}
                     </div>
                   </div>
                 </CardContent>
