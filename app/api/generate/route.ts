@@ -38,12 +38,12 @@ function promptBuilderAnswers(
   `;
 }
 
-async function chat(prompt: string) {
+async function chat(prompt: string): Promise<string> {
   const response = await client.chat.completions.create({
     model: "llama-3.2-90b-vision-preview",
     messages: [{ role: "user", content: prompt }],
   });
-  return response.choices[0].message.content;
+  return response.choices[0].message.content ?? '';
 }
 
 export async function POST(request: Request) {
@@ -51,7 +51,7 @@ export async function POST(request: Request) {
     const { domain, exampleType, numExamples } = await request.json();
 
     // Generate instructions
-    const pairs = [];
+    const pairs: { instruction: string; answer?: string }[] = [];
     const prompt = promptBuilder(domain, exampleType);
 
     for (let i = 0; i < numExamples; i++) {
