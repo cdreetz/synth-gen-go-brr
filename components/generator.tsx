@@ -133,7 +133,7 @@ export function Generator() {
         <div className="space-y-2">
           <p className="mb-2">Follow these steps to generate instruction-answer pairs:</p>
           <ul className="list-disc pl-6 space-y-2">
-            <li>Enter a specific domain (e.g., "pharmacology", "computer science", "history")</li>
+            <li>Enter a specific domain (e.g., `pharmacology`, `computer science`, `history`)</li>
             <li>
               Choose an example type that suits your needs
               <div className="mt-1">
