@@ -96,10 +96,10 @@ export function Generator() {
         description: `Generated ${data.length} instruction-answer pairs`,
       });
     } catch (error) {
+      console.error('Generation error:', error);
       toast({
-        title: "Generation Failed",
-        description:
-          "There was an error generating the pairs. Please try again.",
+        title: "Generation Failed", 
+        description: error instanceof Error ? error.message : "There was an error generating the pairs. Please try again.",
         variant: "destructive",
       });
     } finally {
@@ -316,7 +316,7 @@ export function Generator() {
               </CardHeader>
               <CardContent>
                 <div className="text-center text-muted-foreground py-8">
-                  Configure your settings and click "Generate Pairs" to begin
+                  Configure your settings and click `Generate Pairs` to begin
                 </div>
               </CardContent>
             </Card>

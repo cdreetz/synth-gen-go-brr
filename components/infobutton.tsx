@@ -1,7 +1,6 @@
 import {
     AlertDialog,
     AlertDialogContent,
-    AlertDialogDescription,
     AlertDialogHeader,
     AlertDialogFooter,
     AlertDialogTitle,
