@@ -20,7 +20,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-import { Download, Pencil, Check } from "lucide-react";
+import { Download, Pencil, Check, Copy } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
 import InfoButton from "@/components/infobutton";
 
@@ -128,30 +128,32 @@ export function Generator() {
   };
 
   return (
-    <div className="container mx-auto py-10 flex gap-8 relative">
-      <InfoButton title="How to Use the Generator">
-        <div className="space-y-2">
-          <p className="mb-2">Follow these steps to generate instruction-answer pairs:</p>
-          <ul className="list-disc pl-6 space-y-2">
-            <li>Enter a specific domain (e.g., `pharmacology`, `computer science`, `history`)</li>
-            <li>
-              Choose an example type that suits your needs
-              <div className="mt-1">
-                <ul className="list-disc pl-6">
-                  <li>Q&A: Question and answer format</li>
-                  <li>Dialogue: Conversational examples</li>
-                  <li>Instruction: Command-response pairs</li>
-                  <li>Completion: Text completion tasks</li>
-                  <li>Few Shot: Examples for few-shot learning</li>
-                </ul>
-              </div>
-            </li>
-            <li>Select the number of examples you want to generate (1-10)</li>
-            <li>Choose a model based on your needs - larger models are more capable but slower</li>
-            <li>After generation, you can edit answers and export the pairs as JSON</li>
-          </ul>
-        </div>
-      </InfoButton>
+    <div className="container mx-auto py-5 flex gap-8 relative">
+      <div className="absolute left-0 -top-5">
+        <InfoButton title="How to Use the Generator">
+          <div className="space-y-2">
+            <p className="mb-2">Follow these steps to generate instruction-answer pairs:</p>
+            <ul className="list-disc pl-6 space-y-2">
+              <li>Enter a specific domain (e.g., `pharmacology`, `computer science`, `history`)</li>
+              <li>
+                Choose an example type that suits your needs
+                <div className="mt-1">
+                  <ul className="list-disc pl-6">
+                    <li>Q&A: Question and answer format</li>
+                    <li>Dialogue: Conversational examples</li>
+                    <li>Instruction: Command-response pairs</li>
+                    <li>Completion: Text completion tasks</li>
+                    <li>Few Shot: Examples for few-shot learning</li>
+                  </ul>
+                </div>
+              </li>
+              <li>Select the number of examples you want to generate (1-10)</li>
+              <li>Choose a model based on your needs - larger models are more capable but slower</li>
+              <li>After generation, you can edit answers and export the pairs as JSON</li>
+            </ul>
+          </div>
+        </InfoButton>
+      </div>
 
       <div className="w-1/2 space-y-4">
         <Card>
@@ -242,15 +244,46 @@ export function Generator() {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-2">
-              <Button
-                onClick={exportToJson}
-                variant="outline"
-                className="w-full flex items-center gap-2"
-              >
-                <Download className="h-4 w-4" />
-                Export as JSON
-              </Button>
-              {/* Future actions can be added here */}
+              <div className="flex gap-2">
+                <Button
+                  onClick={exportToJson}
+                  variant="outline"
+                  className="w-full flex items-center gap-2"
+                >
+                  <Download className="h-4 w-4" />
+                  Export as JSON
+                </Button>
+                <Button
+                  variant="outline"
+                  className="w-full flex items-center gap-2"
+                  disabled
+                  title="Export as URL coming soon"
+                >
+                  <Download className="h-4 w-4" />
+                  Export as URL
+                </Button>
+              </div>
+              <div className="space-y-2">
+                <div className="text-sm font-medium text-muted-foreground">Dataset URL:</div>
+                <div className="flex gap-2">
+                  <Input 
+                    value="Dataset URLs coming soon..." 
+                    readOnly 
+                    disabled
+                    className="cursor-not-allowed"
+                    title="Dataset URLs coming soon"
+                  />
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    disabled
+                    className="cursor-not-allowed"
+                    title="Dataset URLs coming soon"
+                  >
+                    <Copy className="h-4 w-4" />
+                  </Button>
+                </div>
+              </div>
             </CardContent>
           </Card>
         )}
