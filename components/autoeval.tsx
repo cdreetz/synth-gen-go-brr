@@ -20,7 +20,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-import { Download, Pencil, Check, Copy } from "lucide-react";
+import { Download, Pencil, Check } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
 import InfoButton from "@/components/infobutton";
 
