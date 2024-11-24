@@ -221,9 +221,9 @@ export function Generator() {
       </div>
 
       <div className="w-1/2">
-        {pairs.length > 0 && (
-          <div className="space-y-4 max-h-[calc(100vh-4rem)] overflow-y-auto pr-4">
-            {pairs.map((pair, index) => (
+        <div className="space-y-4 max-h-[calc(100vh-4rem)] overflow-y-auto pr-4">
+          {pairs.length > 0 ? (
+            pairs.map((pair, index) => (
               <Card key={index}>
                 <CardHeader>
                   <CardTitle>Pair {index + 1}</CardTitle>
@@ -241,9 +241,23 @@ export function Generator() {
                   </div>
                 </CardContent>
               </Card>
-            ))}
-          </div>
-        )}
+            ))
+          ) : (
+            <Card>
+              <CardHeader>
+                <CardTitle>Output</CardTitle>
+                <CardDescription>
+                  Generated pairs will appear here
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="text-center text-muted-foreground py-8">
+                  Configure your settings and click "Generate Pairs" to begin
+                </div>
+              </CardContent>
+            </Card>
+          )}
+        </div>
       </div>
     </div>
   );
