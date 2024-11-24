@@ -36,6 +36,9 @@ const HeaderBar = () => {
             <Link href="/generator">Finetune Generator</Link>
           </DropdownMenuItem>
           <DropdownMenuItem>
+            <Link href="/auto-eval">Auto Eval</Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem>
             <Link href="https://github.com/cdreetz/synth-gen-go-brr/issues/new">
               Support
             </Link>
