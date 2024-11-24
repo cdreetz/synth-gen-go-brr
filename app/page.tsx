@@ -35,7 +35,9 @@ export default function Home() {
             </CardDescription>
           </CardHeader>
           <CardContent className="flex justify-center">
-            <Button variant="secondary" disabled>Coming Soon</Button>
+            <Link href="/auto-eval">
+              <Button>Get Started</Button>
+            </Link>
           </CardContent>
         </Card>
 
